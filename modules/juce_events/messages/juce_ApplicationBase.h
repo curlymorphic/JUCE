@@ -307,6 +307,12 @@ public:
     bool sendCommandLineToPreexistingInstance();
    #endif
 
+    //Added by sspo to allow support for custom file types in ios
+    // from https://github.com/juce-framework/JUCE/pull/1036/files
+    // per https://forum.juce.com/t/fr-ios-custom-file-type-open-handler/28400/9
+
+    virtual bool urlOpened(URL& url) { return false; }
+
 private:
     //==============================================================================
     static JUCEApplicationBase* appInstance;
