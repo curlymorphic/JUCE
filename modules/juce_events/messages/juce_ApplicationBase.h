@@ -113,7 +113,7 @@ namespace juce {
 // from https://github.com/juce-framework/JUCE/pull/1036/files
 // per https://forum.juce.com/t/fr-ios-custom-file-type-open-handler/28400/9
 
-                    virtual void urlOpened(URL& /*url*/) {}
+                    virtual void urlOpened(const URL& /*url*/) {}
 
                     /** Returns the application's name. */
                     virtual const String getApplicationName() = 0;
