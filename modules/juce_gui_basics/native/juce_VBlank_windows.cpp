@@ -44,7 +44,7 @@ public:
     VBlankThread (ComSmartPtr<IDXGIOutput> out,
                   HMONITOR mon,
                   VBlankListener& listener)
-        : Thread ("VBlankThread"),
+        : Thread (SystemStats::getJUCEVersion() + ": VBlankThread"),
           output (out),
           monitor (mon)
     {
@@ -121,6 +121,12 @@ private:
         {
             if (output->WaitForVBlank() == S_OK)
             {
+                if (const auto now = Time::getMillisecondCounterHiRes();
+                    now - std::exchange (lastVBlankEvent, now) < 1.0)
+                {
+                    Thread::sleep (1);
+                }
+
                 std::unique_lock lock { mutex };
                 condvar.wait (lock, [this] { return threadState != ThreadState::sleep; });
 
@@ -164,6 +170,7 @@ private:
         exit,
     };
 
+    double lastVBlankEvent = 0.0;
     ThreadState threadState = ThreadState::paint;
     std::condition_variable condvar;
     std::mutex mutex;

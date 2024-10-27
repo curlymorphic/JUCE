@@ -1029,7 +1029,7 @@ private:
                                      EventRegistrationToken& added,
                                      EventRegistrationToken& removed,
                                      EventRegistrationToken& updated)
-                    : Thread ("WinRT Device Enumeration Thread"), handler (h), watcher (w),
+                    : Thread (SystemStats::getJUCEVersion() + ": WinRT Device Enumeration Thread"), handler (h), watcher (w),
                       deviceAddedToken (added), deviceRemovedToken (removed), deviceUpdatedToken (updated)
             {}
 
@@ -1235,7 +1235,7 @@ private:
         //==============================================================================
         struct Listener
         {
-            virtual ~Listener() {};
+            virtual ~Listener() = default;
             virtual void bleDeviceAdded (const String& containerID) = 0;
             virtual void bleDeviceDisconnected (const String& containerID) = 0;
         };
@@ -1251,7 +1251,7 @@ private:
         }
 
         //==============================================================================
-        ListenerList<Listener> listeners;
+        ThreadSafeListenerList<Listener> listeners;
         HashMap<String, DeviceInfo> devices;
         CriticalSection deviceChanges;
 
