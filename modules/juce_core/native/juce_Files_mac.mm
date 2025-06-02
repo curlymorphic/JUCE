@@ -508,4 +508,13 @@ File File::getContainerForSecurityApplicationGroupIdentifier (const String& appG
     return File();
 }
 
+File File::getICloudDocumentsDirectory()
+{
+
+        if (auto* url = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier: juceStringToNS ("iCloud.com.DavidFrench.MooMu")])
+            return File (nsStringToJuce ([url path]));
+
+return File();
+}
+
 } // namespace juce
