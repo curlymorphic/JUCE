@@ -508,10 +508,10 @@ File File::getContainerForSecurityApplicationGroupIdentifier (const String& appG
     return File();
 }
 
-File File::getICloudDocumentsDirectory()
+File File::getICloudDocumentsDirectory(const String& iCloudContainerIdentifier = "iCloud.com.DavidFrench.MooMu")
 {
 
-        if (auto* url = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier: juceStringToNS ("iCloud.com.DavidFrench.MooMu")])
+        if (auto* url = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier: juceStringToNS (iCloudContainerIdentifier)])
             return File (nsStringToJuce ([url path]));
 
 return File();
