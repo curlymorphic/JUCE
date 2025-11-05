@@ -1127,6 +1127,8 @@ namespace juce
         static File getContainerForSecurityApplicationGroupIdentifier (const String& appGroup);
 
         static File getICloudDocumentsDirectory(const String& iCloudContainerIdentifier = String("iCloud.com.DavidFrench.MooMu"));
+
+        static bool isICloudAvailable();
 #endif
 
         //==============================================================================

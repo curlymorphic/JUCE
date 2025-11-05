@@ -508,13 +508,23 @@ File File::getContainerForSecurityApplicationGroupIdentifier (const String& appG
     return File();
 }
 
-File File::getICloudDocumentsDirectory(const String& iCloudContainerIdentifier)
+File File::getICloudDocumentsDirectory (const String& iCloudContainerIdentifier)
 {
 
         if (auto* url = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier: juceStringToNS (iCloudContainerIdentifier)])
             return File (nsStringToJuce ([url path]));
 
 return File();
+}
+
+bool isICloudAvailable()
+{
+    @autoreleasepool
+    {
+        NSFileManager* fileManager = [NSFileManager defaultManager];
+        NSURL* ubiq = [fileManager URLForUbiquityContainerIdentifier:nil];
+        return (ubiq != nil);
+    }
 }
 
 } // namespace juce
