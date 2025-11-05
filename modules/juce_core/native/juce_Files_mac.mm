@@ -517,7 +517,7 @@ File File::getICloudDocumentsDirectory (const String& iCloudContainerIdentifier)
 return File();
 }
 
-bool isICloudAvailable()
+bool File::isICloudAvailable()
 {
     @autoreleasepool
     {
